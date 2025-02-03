@@ -5,8 +5,10 @@ const table = document.querySelector("table");
 const fox = { x: n-1, y: m-1 }; 
 const rabbit = { x: n-1, y: m-1 };
 
-function start(){
+function startGame(){
     showBoard
+    console.log("wazzza");
+    
     button.disabled = true;  
 };
 
@@ -23,9 +25,9 @@ function showBoard() {
     }
 }
 
+const button = document.querySelector("button")
+button.addEventListener("click", startGame)
     
 
-const button = document.querySelector("button")
-button.addEventListener("click", start)
 
 

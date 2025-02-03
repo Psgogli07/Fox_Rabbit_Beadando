@@ -18,3 +18,12 @@
     border-color: white;
     border: 5px;
 }
+
+#tabla tr td{
+    background-color: aquamarine;
+    
+} 
+
+#eredmeny{
+    margin: auto;
+}
