@@ -1,12 +1,29 @@
 
+const n = 12;
+const m = 5;
+const table = document.querySelector("table");
+const fox = { x: n-1, y: m-1 }; 
+const rabbit = { x: n-1, y: m-1 };
 
-function start() {
-    button.disabled = true;
+function start(){
+    showBoard
+    button.disabled = true;  
+};
 
-
-    
+function showBoard() {
+    table.innerHTML = "";
+    for (let i = 0; i < n; i++) {
+        const tr = document.createElement("tr");
+        for (let j = 0; j < n; j++) {
+            const td = document.createElement("td");
+            td.innerText = getText(i, j);
+            tr.appendChild(td);
+        }
+        table.appendChild(tr);
+    }
 }
 
+    
 
 const button = document.querySelector("button")
 button.addEventListener("click", start)

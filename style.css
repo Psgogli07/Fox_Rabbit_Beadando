@@ -1,3 +1,4 @@
+
 #alcim{
     font-family:'Courier New', Courier, monospace;
     text-align: center;
@@ -16,10 +17,4 @@
     width: 100%;
     border-color: white;
     border: 5px;
-}
-
-
-
-#eredmeny{
-    margin: auto;
 }
