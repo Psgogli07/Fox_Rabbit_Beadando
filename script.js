@@ -15,7 +15,7 @@ function showBoard() {
         const tr = document.createElement("tr");
         for (let j = 0; j < m; j++) {
             const td = document.createElement("td");
-            td.innerText = "a";
+            td.innerText = "";
             tr.appendChild(td);
         }
         table.appendChild(tr);
