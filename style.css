@@ -1,0 +1,25 @@
+#alcim{
+    font-family:'Courier New', Courier, monospace;
+    text-align: center;
+}
+
+#gomb button{
+    display: block;
+    margin: auto;
+    width: 20%;
+    height: 20%;
+    
+}
+
+#tabla{
+    margin: auto;
+    width: 100%;
+    border-color: white;
+    border: 5px;
+}
+
+
+
+#eredmeny{
+    margin: auto;
+}
