@@ -12,16 +12,17 @@
     
 }
 
-#tabla{
+#tabla table{
     margin: auto;
-    width: 100%;
+    
     border-color: white;
     border: 5px;
 }
 
-#tabla tr td{
+#tabla table tr td{
     background-color: aquamarine;
-    
+    height: 10px;
+    width: 10px;
 } 
 
 #eredmeny{

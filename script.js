@@ -5,7 +5,7 @@ const fox = { x: n-1, y: m-1 };
 const rabbit = { x: n-1, y: m-1 };
 
 function start(){
-    showBoard
+    showBoard()
     button.disabled = true;  
 };
 
