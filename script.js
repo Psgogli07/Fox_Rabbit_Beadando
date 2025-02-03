@@ -32,6 +32,7 @@ function showBoard() {
 
 function poziciok(){
     table.rows[4].cells[11].innerText = "🦊";
+    table.rows[randint(0,5)].cells[randint(0,4)].innerText = "🐰";
 }   
 
 const button = document.querySelector("button")
