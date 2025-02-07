@@ -14,6 +14,19 @@ function start(){
     button.disabled = true; 
     document.addEventListener("keydown", moveFox);
 };
+function randomnyul() {
+    table.rows[rabbit.x].cells[rabbit.y] = "";
+    let random1 = randint(0,n-1);
+    let random2 = randint(0,m/2-1);  
+    table.rows[random1].cells[random2].innerText = "🐰"; 
+}
+
+function Level() {
+    setInterval(() => {
+
+        randomnyul()     
+    }, 1000);
+}
 
 function showBoard() {
     table.innerHTML = "";
@@ -53,8 +66,5 @@ function moveFox(event) {
     table.rows[fox.x].cells[fox.y].innerText = "🦊";
 }
 
-
 const button = document.querySelector("button")
 button.addEventListener("click", start)
-
-
