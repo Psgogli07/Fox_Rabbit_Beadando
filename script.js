@@ -9,6 +9,7 @@ function randint(a, b) {
 }
 
 function start(){
+    console.clear()
     showBoard()
     poziciok()
     button.disabled = true; 
@@ -23,23 +24,41 @@ function randomnyul() {
     rabbit.x = random1;
     rabbit.y = random2;
     table.rows[random1].cells[random2].innerText = "🐰"; 
+
 }
+
+//----------------level - timer meg szint----------------
 
 function Level() {
     const startTime = Math.floor(Date.now() / 1000);
-    setInterval(() => {
-        table.rows[rabbit.x].cells[rabbit.y].innerText = "";        
-        randomnyul()          
-        const currentTime = Math.floor(Date.now() / 1000);
-        const elapsedTime = currentTime - startTime;
-        document.querySelector("#timer").innerText = "Idő: "+elapsedTime
-        if (elapsedTime === 7) {
-            document.removeEventListener("keydown", moveFox)
-            table.rows[fox.x].cells[fox.y].innerText = ""
-        }
 
-    }, 1000);
+    return new Promise((fulfilled, reject) => {
+        function jatekfolyamat() {
+            table.rows[rabbit.x].cells[rabbit.y].innerText = "";        
+            randomnyul();
+            const currentTime = Math.floor(Date.now() / 1000);
+            const elapsedTime = currentTime - startTime;
+            document.querySelector("#timer").innerText = "Idő: " + elapsedTime;
+
+            if (fox.x === rabbit.x && fox.y === rabbit.y) {
+                fulfilled();
+                return;
+            }
+
+            if (elapsedTime >= 7) {
+                document.removeEventListener("keydown", moveFox)
+                table.rows[fox.x].cells[fox.y].innerText = ""
+                reject();
+                return;
+            }
+
+            setTimeout(jatekfolyamat, 1000);
+        }
+        jatekfolyamat();
+    });
 }
+
+
 
 function showBoard() {
     table.innerHTML = "";
