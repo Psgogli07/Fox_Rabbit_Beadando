@@ -1,0 +1,84 @@
+    <script>
+        const n = 5;
+        const m = 12;
+        const table = document.querySelector("table");
+        const button = document.getElementById("startButton");
+        let fox = { x: n - 1, y: m - 1 }; 
+        let rabbit = { x: 0, y: 0 }; 
+        let levelCount = 1; // aktuális szint
+        let totalTime = 0; // összes idő
+        let timerInterval;
+
+        function randint(a, b) {
+            return Math.floor(Math.random() * (b - a + 1)) + a;
+        }
+
+        function start() {
+            fox = { x: n - 1, y: m - 1 }; 
+            rabbit = { x: randint(0, n - 1), y: 0 }; // nyúl a bal oldalon
+            showBoard();
+            poziciok();
+            button.disabled = true;  
+            level(levelCount);
+        }
+
+        function showBoard() {
+            table.innerHTML = "";
+            for (let i = 0; i < n; i++) {
+                const tr = document.createElement("tr");
+                for (let j = 0; j < m; j++) {
+                    const td = document.createElement("td");
+                    td.innerText = "";
+                    tr.appendChild(td);
+                }
+                table.appendChild(tr);
+            }
+        }
+
+        function poziciok() {
+            table.rows[fox.x].cells[fox.y].innerText = "🦊";
+            table.rows[rabbit.x].cells[rabbit.y].innerText = "🐰";
+        }
+
+        function handleMove(event) {
+            const key = event.key;
+            if (key === "ArrowUp" && fox.x > 0) {
+                fox.x--;
+            } else if (key === "ArrowDown" && fox.x < n - 1) {
+                fox.x++;
+            } else if (key === "ArrowLeft" && fox.y > 0) {
+                fox.y--;
+            } else if (key === "ArrowRight" && fox.y < m - 1) {
+                fox.y++;
+            }
+            showBoard();
+            poziciok();
+        }
+
+        function updateRabbit() {
+            rabbit.x = randint(0, n - 1);
+            rabbit.y = 0; // landing on the first column
+            poziciok();
+        }
+
+        function level(levelNum) {
+            return new Promise((resolve, reject) => {
+                let startTime = Date.now();
+                let timeLimit = 7000; // 7 másodperc
+                let captured = false;
+
+                timerInterval = setInterval(() => {
+                    document.getElementById("info").innerText = `Szint: ${levelNum}, Idő: ${Math.floor((Date.now() - startTime) / 1000)} másodperc`;
+                    updateRabbit();
+                }, 1000);
+
+                const gameDuration = setTimeout(() => {
+                    clearInterval(timerInterval);
+                    button.disabled = false; // gomb engedélyezése
+                    if (!captured) {
+                        reject(levelNum); // szint bukása
+                    }
+                }, timeLimit);
+
+                window.addEventListener("keydown", (event) => {
+                    if (event.key === "ArrowUp" || event.key === "

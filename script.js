@@ -11,10 +11,8 @@ function randint(a, b) {
 function start(){
     showBoard()
     poziciok()
-    window.addEventListener("keyup", handleMove);
-    button.disabled = true;  
-    fox = { x: n - 1, y: m -1}; 
-    rabbit = { x: n-1, y: m-1 };
+    button.disabled = true; 
+    document.addEventListener("keydown", moveFox);
 };
 
 function showBoard() {
@@ -28,48 +26,33 @@ function showBoard() {
         }
         table.appendChild(tr);
     }
-    
 }
+
 
 function poziciok(){
     table.rows[4].cells[11].innerText = "🦊";
     let random1 = randint(0,n-1);
     let random2 = randint(0,m/2-1);  
-    table.rows[random1].cells[random2].innerText = "🐰";
-    
+    table.rows[random1].cells[random2].innerText = "🐰"; 
 } 
 
-function handleMove(e) {
-    let correctMove = true;
-    const previousTd = fox;
-    if (e.key === "ArrowUp" && fox.y > 0) {
-        fox.y--;
-    } else if (e.key === "ArrowDown" && fox.y < n-1) {
-        fox.y++;
-    } else if (e.key === "ArrowLeft" && fox.x > 0) {
+function moveFox(event) {
+
+    table.rows[fox.x].cells[fox.y].innerText = "";
+
+    if (event.key === "ArrowUp" && fox.x > 0) {
         fox.x--;
-    } else if (e.key === "ArrowRight" && fox.x < m-1) {
+    } else if (event.key === "ArrowDown" && fox.x < n-1) {
         fox.x++;
-    } else {
-        correctMove = false;
+    } else if (event.key === "ArrowLeft" && fox.y > 0) {
+        fox.y--;
+    } else if (event.key === "ArrowRight" && fox.y < m-1) {
+        fox.y++;
     }
-    if (correctMove) {
-        const currentTd = fox;
-        // currentTd.classList.add("current-position");
-        // previousTd.classList.remove("current-position");
-       currentTd.textContent = "🦊"
-        previousTd.textContent = "" 
-    }  
+
+    table.rows[fox.x].cells[fox.y].innerText = "🦊";
 }
 
-// function choosePosition(e) {
-//     const td = e.target;
-//     if (!td.matches("td")) return;
-//     fox.x = td.cellIndex;
-//     fox.y = td.parentNode.rowIndex;
-//     td.classList.add("current-position");
-//     window.addEventListener("keyup", handleMove);
-// }
 
 
 const button = document.querySelector("button")
