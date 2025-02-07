@@ -13,9 +13,7 @@ function start(){
     poziciok()
     button.disabled = true; 
     document.addEventListener("keydown", moveFox);
-    Level();
 };
-
 function randomnyul() {
     table.rows[rabbit.x].cells[rabbit.y] = "";
     let random1 = randint(0,n-1);
@@ -63,6 +61,12 @@ function moveFox(event) {
     } else if (event.key === "ArrowRight" && fox.y < m-1) {
         fox.y++;
     }
+<<<<<<< HEAD
+=======
+
+    table.rows[fox.x].cells[fox.y].innerText = "🦊";
+}
+>>>>>>> b850d96a51141ee96b9dba7e5f381307f514134b
 
     table.rows[fox.x].cells[fox.y].innerText = "🦊";
 }
