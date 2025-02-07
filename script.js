@@ -2,7 +2,7 @@ const n = 5;
 const m = 12;
 const table = document.querySelector("table");
 let fox = { x: n-1, y: m-1 }; 
-let rabbit = { x: n-1, y: m-1 };
+let rabbit = { x: 0, y: 0 };
 
 function randint(a, b) {
     return Math.floor(Math.random() * (b-a+1)) + a;
@@ -26,9 +26,15 @@ function randomnyul() {
 }
 
 function Level() {
+    const startTime = Math.floor(Date.now() / 1000);
     setInterval(() => {
         table.rows[rabbit.x].cells[rabbit.y].innerText = "";        
         randomnyul()     
+        
+        const currentTime = Math.floor(Date.now() / 1000);
+        const elapsedTime = currentTime - startTime;
+        document.querySelector("#timer").innerText = "Idő: "+elapsedTime
+
     }, 1000);
 }
 
