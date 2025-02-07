@@ -29,11 +29,14 @@ function Level() {
     const startTime = Math.floor(Date.now() / 1000);
     setInterval(() => {
         table.rows[rabbit.x].cells[rabbit.y].innerText = "";        
-        randomnyul()     
-        
+        randomnyul()          
         const currentTime = Math.floor(Date.now() / 1000);
         const elapsedTime = currentTime - startTime;
         document.querySelector("#timer").innerText = "Idő: "+elapsedTime
+        if (elapsedTime === 7) {
+            document.removeEventListener("keydown", moveFox)
+            table.rows[fox.x].cells[fox.y].innerText = ""
+        }
 
     }, 1000);
 }
@@ -74,9 +77,7 @@ function moveFox(event) {
         fox.y++;
     }
 
-    table.rows[fox.x].cells[fox.y].innerText = "🦊";
-    console.log(fox.x +" "+fox.y);
-    
+    table.rows[fox.x].cells[fox.y].innerText = "🦊";    
 }
 
 const button = document.querySelector("button")
