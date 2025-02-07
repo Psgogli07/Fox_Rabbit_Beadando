@@ -23,7 +23,7 @@ function randomnyul() {
 
 function Level() {
     setInterval(() => {
-        
+
         randomnyul()     
     }, 1000);
 }
@@ -62,12 +62,6 @@ function moveFox(event) {
     } else if (event.key === "ArrowRight" && fox.y < m-1) {
         fox.y++;
     }
-<<<<<<< HEAD
-=======
-
-    table.rows[fox.x].cells[fox.y].innerText = "🦊";
-}
->>>>>>> b850d96a51141ee96b9dba7e5f381307f514134b
 
     table.rows[fox.x].cells[fox.y].innerText = "🦊";
 }
