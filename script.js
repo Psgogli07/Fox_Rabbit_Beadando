@@ -54,7 +54,6 @@ function moveFox(event) {
 }
 
 
-
 const button = document.querySelector("button")
 button.addEventListener("click", start)
 
