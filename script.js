@@ -13,17 +13,21 @@ function start(){
     poziciok()
     button.disabled = true; 
     document.addEventListener("keydown", moveFox);
+    Level()
 };
+
+//----------------rabbit jumping----------------
 function randomnyul() {
-    table.rows[rabbit.x].cells[rabbit.y] = "";
     let random1 = randint(0,n-1);
     let random2 = randint(0,m/2-1);  
+    rabbit.x = random1;
+    rabbit.y = random2;
     table.rows[random1].cells[random2].innerText = "🐰"; 
 }
 
 function Level() {
     setInterval(() => {
-
+        table.rows[rabbit.x].cells[rabbit.y].innerText = "";        
         randomnyul()     
     }, 1000);
 }
@@ -45,14 +49,15 @@ function showBoard() {
 function poziciok(){
     table.rows[4].cells[11].innerText = "🦊";
     let random1 = randint(0,n-1);
-    let random2 = randint(0,m/2-1);  
+    let random2 = randint(0,m/2-1); 
+    rabbit.x = random1;
+    rabbit.y = random2; 
     table.rows[random1].cells[random2].innerText = "🐰"; 
 } 
 
+//----------------fox moves----------------
 function moveFox(event) {
-
     table.rows[fox.x].cells[fox.y].innerText = "";
-
     if (event.key === "ArrowUp" && fox.x > 0) {
         fox.x--;
     } else if (event.key === "ArrowDown" && fox.x < n-1) {
@@ -64,6 +69,8 @@ function moveFox(event) {
     }
 
     table.rows[fox.x].cells[fox.y].innerText = "🦊";
+    console.log(fox.x +" "+fox.y);
+    
 }
 
 const button = document.querySelector("button")
