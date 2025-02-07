@@ -1,8 +1,8 @@
 const n = 5;
 const m = 12;
 const table = document.querySelector("table");
-const fox = { x: n-1, y: m-1 }; 
-const rabbit = { x: n-1, y: m-1 };
+let fox = { x: n-1, y: m-1 }; 
+let rabbit = { x: n-1, y: m-1 };
 
 function randint(a, b) {
     return Math.floor(Math.random() * (b-a+1)) + a;
@@ -12,7 +12,7 @@ function start(){
     showBoard()
     poziciok()
     button.disabled = true;  
-    fox = { x: n, y: m }; 
+    fox = { x: n - 1, y: m -1}; 
     rabbit = { x: n-1, y: m-1 };
 };
 
@@ -32,7 +32,12 @@ function showBoard() {
 
 function poziciok(){
     table.rows[4].cells[11].innerText = "🦊";
-    table.rows[randint(0,5)].cells[randint(0,4)].innerText = "🐰";
+    let random1 = randint(0,n-1);
+    let random2 = randint(0,m/2-1);  
+    console.log(random1);
+    console.log(random2);
+    table.rows[random1].cells[random2].innerText = "🐰";
+    
 }   
 
 const button = document.querySelector("button")
