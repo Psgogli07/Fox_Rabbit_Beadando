@@ -23,6 +23,7 @@ function randomnyul() {
 
 function Level() {
     setInterval(() => {
+        
         randomnyul()     
     }, 1000);
 }
