@@ -24,11 +24,11 @@ function start() {
             .then((elapsedTime) => {
                 console.log(`Szint ${szint} teljesítve ${elapsedTime} másodperc alatt!`);
                 szint++;
-                nextLevel();
             })
             .catch((error) => {
                 button.disabled = false;
             });
+            
     }
 
     nextLevel();
