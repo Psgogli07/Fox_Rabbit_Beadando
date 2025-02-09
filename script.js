@@ -21,8 +21,6 @@ function start(){
     eredmeyn = document.querySelector("#eredmeny tr")
     Level(szint)
     console.log(Level(szint));
-    
-    
 };
 
 //----------------rabbit jumping----------------
@@ -36,6 +34,8 @@ function randomnyul() {
 }
 
 //----------------level - timer meg szint----------------
+
+
 function Level(szint) {
     const startTime = Math.floor(Date.now() / 1000);
     return new Promise((fulfilled, reject) => {
@@ -70,8 +70,6 @@ function Level(szint) {
 function fulfilled(t) {
     return t;
 }
-
-
 
 
 function showBoard() {

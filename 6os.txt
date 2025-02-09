@@ -1,0 +1,67 @@
+function round(n) {
+    return new Promise((fulfilled, reject) => {
+        setTimeout(() => {
+            const currentTime = Math.floor(Date.now() / 1000);
+            const elapsedTime = currentTime - startTime;
+            ido =  "Idő: " + elapsedTime;
+            eredmeyn.appendChild(td).appendChild(p).innerText = ` ${ido}\nszint: ${szint}` 
+            if (fox.x === rabbit.x && fox.y === rabbit.y) {
+                fulfilled(elapsedTime);
+                szint++;
+                
+            } 
+            table.rows[rabbit.x].cells[rabbit.y].innerText = "";        
+            randomnyul();
+
+            if (elapsedTime > 7) {
+                document.removeEventListener("keydown", moveFox)
+                table.rows[fox.x].cells[fox.y].innerText = ""
+                reject(szint);
+                return;
+            }
+        }, 1000);
+    })
+}
+
+
+
+
+
+
+
+
+
+function Level(szint) {
+    const startTime = Math.floor(Date.now() / 1000);
+    return new Promise((fulfilled, reject) => {
+        function jatekfolyamat() {
+            const currentTime = Math.floor(Date.now() / 1000);
+            const elapsedTime = currentTime - startTime;
+            ido =  "Idő: " + elapsedTime;
+            eredmeyn.appendChild(td).appendChild(p).innerText = ` ${ido}\nszint: ${szint}` 
+
+            if (fox.x === rabbit.x && fox.y === rabbit.y) {
+                fulfilled(elapsedTime);
+                szint++;
+                return; 
+            }
+
+            table.rows[rabbit.x].cells[rabbit.y].innerText = "";        
+            randomnyul();
+            
+            if (elapsedTime > 7) {
+                document.removeEventListener("keydown", moveFox)
+                table.rows[fox.x].cells[fox.y].innerText = ""
+                reject(szint);
+                return;
+            }
+                  
+            setTimeout(jatekfolyamat, 1000);
+        }
+        jatekfolyamat();
+    });
+}
+
+function fulfilled(t) {
+    return t;
+}
