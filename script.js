@@ -17,18 +17,24 @@ function start() {
     let szint = 1;
     button.disabled = true;
     document.addEventListener("keydown", moveFox);
-    eredmeyn = document.querySelector("#eredmeny tr");
+    let eredmeny = document.querySelector("#eredmeny tr");
 
     function nextLevel() {
         Level(szint)
             .then((elapsedTime) => {
                 console.log(`Szint ${szint} teljesítve ${elapsedTime} másodperc alatt!`);
                 szint++;
+                if (szint <= 3) {
+                    nextLevel();
+                } else {
+                    console.log("Gratulálok, megnyerted a játékot!");
+                    button.disabled = false;
+                }
             })
-            .catch((error) => {
+            .catch((szint) => {
+                console.log(`Elbuktad a(z) ${szint} szintet.`);
                 button.disabled = false;
             });
-            
     }
 
     nextLevel();
@@ -37,7 +43,7 @@ function start() {
 //----------------rabbit jumping----------------
 function randomnyul() {
     let random1 = randint(0, n - 1);
-    let random2 = randint(0, m / 2 - 1);
+    let random2 = randint(0, m - 1);
     rabbit.x = random1;
     rabbit.y = random2;
     table.rows[random1].cells[random2].innerText = "🐰";
@@ -52,10 +58,11 @@ function Level(szint) {
             const elapsedTime = currentTime - startTime;
             let ido = `Idő: ${elapsedTime}`;
             p.innerText = `${ido}\nSzint: ${szint}`;
-            eredmeyn.appendChild(td).appendChild(p);
+            document.querySelector("#eredmeny tr").appendChild(td).appendChild(p);
 
             if (fox.x === rabbit.x && fox.y === rabbit.y) {
                 resolve(elapsedTime);
+                randomnyul();
                 return;
             }
 
@@ -107,7 +114,7 @@ function showBoard() {
 function poziciok() {
     table.rows[4].cells[11].innerText = "🦊";
     let random1 = randint(0, n - 1);
-    let random2 = randint(0, m / 2 - 1);
+    let random2 = randint(0, m - 1);
     rabbit.x = random1;
     rabbit.y = random2;
     table.rows[random1].cells[random2].innerText = "🐰";
