@@ -39,37 +39,39 @@ function randomnyul() {
 function Level(szint) {
     const startTime = Math.floor(Date.now() / 1000);
     return new Promise((fulfilled, reject) => {
-        function jatekfolyamat() {
+        const interval = setInterval(() => {
             const currentTime = Math.floor(Date.now() / 1000);
             const elapsedTime = currentTime - startTime;
-            ido =  "Idő: " + elapsedTime;
-            eredmeyn.appendChild(td).appendChild(p).innerText = ` ${ido}\nszint: ${szint}` 
+            const ido = "Idő: " + elapsedTime;
 
+            // Megjeleníti az időt és a szintet a táblázatban
+            eredmeyn.appendChild(td).appendChild(p).innerText = ` ${ido}\nszint: ${szint}`;
+
+            // Ellenőrzi, hogy a róka elkapta-e a nyulat
             if (fox.x === rabbit.x && fox.y === rabbit.y) {
-                fulfilled(elapsedTime);
-                szint++;
-                return; 
+                clearInterval(interval);  // Megállítja a folyamatos időzítést
+                fulfilled(elapsedTime);   // Beteljesíti az ígéretet az eltelt idővel
+                szint++;                  // Növeli a szintet
+                return;  // Kiszállunk a setInterval-ból, hogy ne fusson tovább
             }
+            table.rows[rabbit.x].cells[rabbit.y].innerText = "";
+            randomnyul()
 
-            table.rows[rabbit.x].cells[rabbit.y].innerText = "";        
-            randomnyul();
-            
+            // Ha elérte a 7 másodpercet, akkor elutasítja az ígéretet
             if (elapsedTime > 7) {
-                document.removeEventListener("keydown", moveFox)
-                table.rows[fox.x].cells[fox.y].innerText = ""
-                reject(szint);
+                clearInterval(interval);  // Megállítja a folyamatos időzítést
+                document.removeEventListener("keydown", moveFox);
+                table.rows[fox.x].cells[fox.y].innerText = "";
+                reject(szint);  // Elutasítja a Promise-t a szinttel
                 return;
             }
-                  
-            setTimeout(jatekfolyamat, 1000);
-        }
-        jatekfolyamat();
+
+        }, 1000);  // 1 másodpercenként fut
     });
 }
 
-function fulfilled(t) {
-    return t;
-}
+
+
 
 
 function showBoard() {
