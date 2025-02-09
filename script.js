@@ -17,12 +17,11 @@ function start() {
     let szint = 1;
     button.disabled = true;
     document.addEventListener("keydown", moveFox);
-    let eredmeny = document.querySelector("#eredmeny tr");
 
     function nextLevel() {
         Level(szint)
-            .then((elapsedTime) => {
-                console.log(`Szint ${szint} teljesítve ${elapsedTime} másodperc alatt!`);
+            .then((elteltido) => {
+                console.log(`Szint ${szint} teljesítve ${elteltido} másodperc alatt!`);
                 szint++;
                 if (szint <= 3) {
                     nextLevel();
@@ -51,17 +50,17 @@ function randomnyul() {
 
 //----------------level - timer meg szint----------------
 function Level(szint) {
-    const startTime = Math.floor(Date.now() / 1000);
+    const kezdoido = Math.floor(Date.now() / 1000);
     return new Promise((resolve, reject) => {
         function jatekfolyamat() {
-            const currentTime = Math.floor(Date.now() / 1000);
-            const elapsedTime = currentTime - startTime;
-            let ido = `Idő: ${elapsedTime}`;
+            const aktido = Math.floor(Date.now() / 1000);
+            const elteltido = aktido - kezdoido;
+            let ido = `Idő: ${elteltido}`;
             p.innerText = `${ido}\nSzint: ${szint}`;
             document.querySelector("#eredmeny tr").appendChild(td).appendChild(p);
 
             if (fox.x === rabbit.x && fox.y === rabbit.y) {
-                resolve(elapsedTime);
+                resolve(elteltido);
                 randomnyul();
                 return;
             }
@@ -69,7 +68,7 @@ function Level(szint) {
             table.rows[rabbit.x].cells[rabbit.y].innerText = "";
             randomnyul();
 
-            if (elapsedTime > 7) {
+            if (elteltido > 7) {
                 document.removeEventListener("keydown", moveFox);
                 table.rows[fox.x].cells[fox.y].innerText = "";
                 reject(szint);
@@ -114,7 +113,7 @@ function showBoard() {
 function poziciok() {
     table.rows[4].cells[11].innerText = "🦊";
     let random1 = randint(0, n - 1);
-    let random2 = randint(0, m - 1);
+    let random2 = randint(0, m / 2 - 1);
     rabbit.x = random1;
     rabbit.y = random2;
     table.rows[random1].cells[random2].innerText = "🐰";
